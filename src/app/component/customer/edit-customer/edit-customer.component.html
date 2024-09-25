@@ -1,1 +1,101 @@
-<p>edit-customer works!</p>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-orange-50 pt-10">
+  <label class="flex justify-center   mb-8 text-xl font-extrabold"
+    >Edit Customer</label
+  >
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmitForm()">
+    <div
+      class="max-w-[28rem] p-8 mx-auto mt-10 mb-10 bg-white rounded-lg-2xl shadow-xl"
+    >
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Customer Name :</label>
+        <input
+          type="text"
+          formControlName="customerName"
+          class="p-1 my-2 border rounded-lg"
+        />
+        <div
+          class="text-sm text-red-500"
+          *ngIf="
+            formGroup.get('customerName')?.invalid &&
+            (formGroup.get('customerName')?.dirty ||
+              formGroup.get('customerName')?.touched)
+          "
+        >
+          <div *ngIf="formGroup.get('customerName')?.errors?.['required']">
+            Customer Name is required
+          </div>
+          <div *ngIf="formGroup.get('customerName')?.errors?.['pattern']">
+            Customer Name cannot contain numbers
+          </div>
+          <div *ngIf="formGroup.get('customerName')?.errors?.['minlength'] || formGroup.get('customerName')?.errors?.['maxlength']">
+            Customer Name need to be 3 - 32 characters
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Address :</label>
+        <input
+          type="text"
+          formControlName="customerAddress"
+          class="p-1 my-2 border rounded-lg"
+        />
+        <div
+          class="text-sm text-red-500"
+          *ngIf="formGroup.get('customerAddress')?.invalid && (formGroup.get('customerAddress')?.dirty || formGroup.get('customerAddress')?.touched)"
+        >
+          <div *ngIf="formGroup.get('customerAddress')?.errors?.['minlength'] || formGroup.get('customerAddress')?.errors?.['maxlength']">
+            Address need to be 5 - 100 characters
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Phone Number :</label>
+        <input
+          type="text"
+          class="p-1 my-2 border rounded-lg"
+          formControlName="customerPhone"
+        />
+        <div
+          class="text-sm text-red-500"
+          *ngIf="formGroup.get('customerPhone')?.invalid && (formGroup.get('customerPhone')?.dirty || formGroup.get('customerPhone')?.touched)"
+        >
+          <div *ngIf="formGroup.get('customerPhone')?.errors?.['pattern']">
+            Invalid phone number format
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row my-2">
+        <label for="isActive" class="text-base font-bold"
+          >Is Active : </label
+        >
+        <input
+          class="my-2 ml-5 border rounded-lg"
+          id="isActive"
+          formControlName="isActive"
+          type="checkbox"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Profile Picture :</label>
+        <input type="file" (change)="onFileChange($event)" />
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button
+          class="p-2 px-4 mr-2 text-orange-600 bg-white rounded-lg hover:bg-gray-50"
+          routerLink=""
+        >
+          Back
+        </button>
+        <button
+          class="p-2 px-4 text-white bg-orange-600 rounded-lg hover:bg-orange-700"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

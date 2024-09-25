@@ -1,1 +1,104 @@
-<p>add-order works!</p>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-orange-50 pt-10">
+  <label class="flex justify-center   mb-8 text-xl font-extrabold"
+    >Create New Order</label
+  >
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmitForm()">
+    <div
+      class="max-w-[28rem] p-8 mx-auto mt-10 mb-10 bg-white rounded-lg-2xl shadow-xl"
+    >
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Customer :</label>
+        <select
+          formControlName="customerId"
+          class="p-1 my-2 overflow-y-auto border rounded-lg max-h-40"
+        >
+          <option value="">Choose Customer</option>
+          <option
+            *ngFor="let customer of customer"
+            [value]="customer.customerId"
+          >
+            {{ customer.customerName }}
+          </option>
+        </select>
+
+        <div
+          class="text-sm text-red-500"
+          *ngIf="
+            formGroup.get('customerId')?.invalid &&
+            (formGroup.get('customerId')?.dirty ||
+              formGroup.get('customerId')?.touched)
+          "
+        >
+          <div *ngIf="formGroup.get('customerId')?.errors?.['required']">
+            Customer cannot be empty
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Item :</label>
+        <select
+          formControlName="itemId"
+          class="p-1 my-2 overflow-y-auto border rounded-lg max-h-40"
+        >
+          <option value="">Choose Item</option>
+          <option *ngFor="let item of items" [value]="item.itemId">
+            {{ item.itemName }}
+          </option>
+        </select>
+        <div
+          class="text-sm text-red-500"
+          *ngIf="
+            formGroup.get('itemId')?.invalid &&
+            (formGroup.get('itemId')?.dirty || formGroup.get('itemId')?.touched)
+          "
+        >
+          <div *ngIf="formGroup.get('itemId')?.errors?.['required']">
+            Item cannot be empty
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Quantity :</label>
+        <input
+          type="text"
+          formControlName="quantity"
+          class="p-1 my-2 border rounded-lg"
+        />
+        <div
+          class="text-sm text-red-500"
+          *ngIf="
+            formGroup.get('quantity')?.invalid &&
+            (formGroup.get('quantity')?.dirty ||
+              formGroup.get('quantity')?.touched)
+          "
+        >
+          <div *ngIf="formGroup.get('quantity')?.errors?.['required']">
+            Quantity cannot be empty
+          </div>
+          <div *ngIf="formGroup.get('quantity')?.errors?.['pattern']">
+            Quantity can only contain numbers
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button
+          class="p-2 px-4 mr-2 text-white rounded-lg bg-orange-600 hover:bg-orange-500"
+          (click)="goToMainOrder()"
+        >
+          Back
+        </button>
+        <button
+          class="p-2 px-4 text-white rounded-lg bg-orange-600 hover:bg-orange-500"
+          type="submit"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

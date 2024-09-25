@@ -1,1 +1,32 @@
-<p>detail-item works!</p>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-orange-50 pt-10" *ngIf="item">
+  <label class="flex justify-center   mb-8 text-xl font-extrabold"
+    >Detail item</label
+  >
+  <div
+    class="max-w-[28rem] p-8 mx-auto mt-10 mb-10 bg-white rounded-lg-2xl shadow-xl"
+  >
+    <div class="flex flex-col">
+      <p><strong>ID:</strong> {{ item?.itemId }}</p>
+      <p><strong>Name:</strong> {{ item?.itemName }}</p>
+      <p><strong>Code:</strong> {{ item?.itemCode }}</p>
+      <p><strong>Stock:</strong> {{ item?.stock }}</p>
+      <p>
+        <strong>Last Re-Stock:</strong>
+        {{ item?.lastReStock | date: 'dd/MM/yyyy | HH:mm' }}
+      </p>
+      <div class="flex justify-end mt-4">
+        <button
+          class="p-2 px-4 text-white rounded-lg bg-orange-600 hover:bg-orange-500"
+          (click)="goToMainItem()"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!item">
+    <p>No item details available.</p>
+  </div>
+</div>

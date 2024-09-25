@@ -1,1 +1,144 @@
-<p>edit-item works!</p>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-orange-50 pt-10">
+  <label class="flex justify-center   mb-8 text-xl font-extrabold"
+    >Edit Item</label
+  >
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmitForm()">
+    <div
+      class="max-w-[28rem] p-8 mx-auto mt-10 mb-10 bg-white rounded-lg-2xl shadow-xl"
+    >
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Nama Item:</label>
+        <input
+          type="text"
+          formControlName="itemName"
+          class="p-1 my-2 border rounded-lg"
+        />
+        <div
+          class="text-sm text-red-500"
+          *ngIf="
+            formGroup.get('itemName')?.invalid &&
+            (formGroup.get('itemName')?.dirty ||
+              formGroup.get('itemName')?.touched)
+          "
+        >
+          <div *ngIf="formGroup.get('itemName')?.errors?.['required']">
+            Item Name is required
+          </div>
+          <div *ngIf="formGroup.get('itemName')?.errors?.['minlength'] || formGroup.get('itemName')?.errors?.['maxlength']">
+            Item Name need to be 3 - 32 characters 
+          </div>
+          <div *ngIf="formGroup.get('itemName')?.errors?.['pattern']">
+            Item Name cannot contain numbers
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Item Code:</label>
+        <input
+          type="text"
+          formControlName="itemCode"
+          class="p-1 my-2 border rounded-lg"
+        />
+        <div
+          class="text-sm text-red-500"
+          *ngIf="
+            formGroup.get('itemCode')?.invalid &&
+            (formGroup.get('itemCode')?.dirty ||
+              formGroup.get('itemCode')?.touched)
+          "
+        >
+          <div *ngIf="formGroup.get('itemCode')?.errors?.['required']">
+            Item Code is required
+          </div>
+          <div *ngIf="formGroup.get('itemCode')?.errors?.['minlength'] || formGroup.get('itemCode')?.errors?.['maxlength']">
+            Item Code need to be 4 - 32 characters
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Stock:</label>
+        <input class="p-1 my-2 border rounded-lg" formControlName="stock" />
+        <div
+          class="text-sm text-red-500"
+          *ngIf="
+            formGroup.get('stock')?.invalid &&
+            (formGroup.get('stock')?.dirty || formGroup.get('stock')?.touched)
+          "
+        >
+          <div *ngIf="formGroup.get('stock')?.errors?.['required']">
+            Stock is required
+          </div>
+          <div *ngIf="formGroup.get('stock')?.errors?.['pattern']">
+            Stock can only contain numbers
+          </div>
+          <div *ngIf="formGroup.get('stock')?.errors?.['minlength'] || formGroup.get('stock')?.errors?.['maxlength']">
+            Stock need to be 1 - 14 characters
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-base font-bold">Price:</label>
+        <input class="p-1 my-2 border rounded-lg" formControlName="price" />
+        <div
+          class="text-sm text-red-500"
+          *ngIf="
+            formGroup.get('price')?.invalid &&
+            (formGroup.get('price')?.dirty || formGroup.get('price')?.touched)
+          "
+        >
+          <div *ngIf="formGroup.get('price')?.errors?.['required']">
+            Price is required
+          </div>
+          <div *ngIf="formGroup.get('price')?.errors?.['pattern']">
+            Tidak can only contain numbers
+          </div>
+          <div *ngIf="formGroup.get('price')?.errors?.['minlength'] || formGroup.get('price')?.errors?.['maxlength']">
+            Price need to be 1 - 14 characters
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="lastReStock" class="text-base font-bold"
+          >Last Re-Stock Date : </label
+        >
+        <input
+          class="p-1 my-2 border rounded-lg"
+          id="lastReStock"
+          formControlName="lastReStock"
+          type="date"
+        />
+      </div>
+
+      <div class="flex flex-row mt-1">
+        <label for="isAvailable" class="text-base font-bold"
+          >Is Available : </label
+        >
+        <input
+          class="my-2 ml-5 border rounded-lg"
+          id="isAvailable"
+          formControlName="isAvailable"
+          type="checkbox"
+        />
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button
+          class="p-2 px-4 mr-2 text-orange-600 bg-white rounded-lg hover:bg-gray-50"
+          (click)="goToMainItem()"
+        >
+          Back
+        </button>
+        <button
+          class="p-2 px-4 text-white bg-orange-600 rounded-lg hover:bg-orange-700"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

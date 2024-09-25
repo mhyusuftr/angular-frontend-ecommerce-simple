@@ -1,1 +1,42 @@
-<p>detail-order works!</p>
+<app-navbar></app-navbar>
+<div class="min-h-screen bg-orange-50 pt-10" *ngIf="order">
+  <label class="flex justify-center   mb-8 text-xl font-extrabold"
+    >Detail Order</label
+  >
+  <div
+    class="max-w-[28rem] p-8 mx-auto mt-10 mb-10 bg-white rounded-lg-2xl shadow-xl"
+  >
+    <div class="flex flex-col">
+      <p><strong>ID:</strong> {{ order?.orderId }}</p>
+      <p><strong>Order Code:</strong> {{ order?.orderCode }}</p>
+      <p>
+        <strong>Order Date:</strong>
+        {{ order?.orderDate | date: 'dd/MM/yyyy | HH:mm' }}
+      </p>
+      <p><strong>Total Price:</strong> {{ order?.totalPrice }}</p>
+      <hr class="my-2 border-gray-200" />
+      <p><strong>Customer Id:</strong> {{ order?.customer?.customerId }}</p>
+      <p><strong>Customer Name:</strong> {{ order?.customer?.customerName }}</p>
+      <p>
+        <strong>Customer Address:</strong> {{ order?.customer?.customerAddress }}
+      </p>
+      <p><strong>Phone:</strong> {{ order?.customer?.customerPhone }}</p>
+      <hr class="my-2 border-gray-200" />
+      <p><strong>Item Id:</strong> {{ order?.item?.itemId }}</p>
+      <p><strong>Item Name:</strong> {{ order?.item?.itemName }}</p>
+
+      <div class="flex justify-end mt-4">
+        <button
+          class="p-2 px-4 text-white rounded-lg bg-orange-600 hover:bg-orange-500"
+          (click)="goToMainOrder()"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!order">
+    <p>No order details available.</p>
+  </div>
+</div>
